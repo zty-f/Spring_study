@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--    使用spring来创建我们的对象，在spring中这些都称为Bean
+          类型   变量名   =new   类型（）；
+            bean=对象         new Hello()
+            id=new 的对象名字
+            class=new 的对象所在类
+            property相当于给对象中的属性设置一个值！
+    -->
+
+
+    <bean id="user" class="com.zty.pojo.User">
+
+        <!--有参构造第一种方式：下标赋值-->
+<!--     <constructor-arg index="0" value="张天泳"/>-->
+
+        <!--有参构造第二种方式：参数类型,,,不建议使用-->
+<!--        <constructor-arg type="java.lang.String" value="zty"/>-->
+
+        <!--有参构造第三种方式：直接通过参数名字-->
+        <constructor-arg name="name" value="ztyf"/>
+
+
+    </bean>
+
+    <bean id="userT" class="com.zty.pojo.UserT">
+
+    </bean>
+
+</beans>

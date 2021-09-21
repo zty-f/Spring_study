@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--注册bean-->
+    <bean id="userService" class="com.zty.dao.UserServiceImpl"/>
+
+<!--    方式一：使用原生的Spring API接口-->
+<!--    <bean id="log" class="com.zty.log.Log"/>-->
+<!--    <bean id="afterLog" class="com.zty.log.AfterLog"/>-->
+
+    <!--aop的配置-->
+<!--    <aop:config>-->
+<!--        &lt;!&ndash;切入点  expression:表达式匹配要执行的方法  execution(要执行的位置)&ndash;&gt;-->
+<!--        <aop:pointcut id="pointcut" expression="execution(* com.zty.dao.UserServiceImpl.*())"/>-->
+<!--        &lt;!&ndash;执行环绕; advice-ref执行方法 . pointcut-ref切入点&ndash;&gt;-->
+<!--        <aop:advisor advice-ref="afterLog" pointcut-ref="pointcut"/>-->
+<!--        <aop:advisor advice-ref="log" pointcut-ref="pointcut"/>-->
+<!--    </aop:config>-->
+
+<!--    方式二：自定义DiyPointCut类来实现AOP-->
+
+    <!--注册bean-->
+    <bean id="diy" class="com.zty.diy.DiyPointCut"/>
+    <!--aop的配置-->
+    <aop:config>
+        <!--第二种方式：使用AOP的标签实现-->
+        <aop:aspect ref="diy">
+            <aop:pointcut id="point" expression="execution(* com.zty.dao.UserServiceImpl.*(..))"/>
+            <aop:before pointcut-ref="point" method="before"/>
+            <aop:after pointcut-ref="point" method="after"/>
+        </aop:aspect>
+    </aop:config>
+
+    <!--第三种方式:注解实现-->
+    <bean id="annotationPointcut" class="com.zty.diy.AnnotationPointcut"/>
+<!--    开启注解支持-->
+    <aop:aspectj-autoproxy/>
+
+</beans>
